@@ -1,0 +1,6 @@
+# Final DAE in the FULL setting. >>> Copy the best (kind, level, lr, weight_decay) from results/a1_tune_dae/results.csv <<<
+extends: configs/base_dae.yaml
+out_dir: runs/dae_final
+data: {train_per_class: 450, batch_size: 128}
+model: {kind: gaussian, level: 0.3, lr: 1.0e-3, weight_decay: 1.0e-4}
+trainer: {max_epochs: 60, knn_every: 10}
