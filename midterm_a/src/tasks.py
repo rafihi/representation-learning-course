@@ -72,7 +72,18 @@ def pretrain(cfg):
     s = dm.s
     model = build_module(cfg)
     t = cfg.get("trainer", {})
-    cbs = [ModelCheckpoint(dirpath=str(out / "ckpt"), save_last=True, save_top_k=0, every_n_epochs=t.get("ckpt_every", 1))]
+    cbs = [
+    ModelCheckpoint(
+        dirpath=str(out / "ckpt"),
+        filename="last",
+        save_last=False,
+        save_top_k=1,
+        every_n_epochs=t.get("ckpt_every", 1),
+        save_on_train_epoch_end=True,
+        enable_version_counter=False,
+        verbose=True
+    )
+]
     if t.get("knn_every", 5) > 0:
         cbs.append(KNNMonitor(s["X_train"], s["y_train"], s["X_val"], s["y_val"], s["num_classes"], t.get("knn_every", 5), **_knn_kw(cfg)))
     trainer = L.Trainer(max_epochs=t["max_epochs"], accelerator="auto", devices=1, precision=_precision(cfg),
