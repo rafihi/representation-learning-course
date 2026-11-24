@@ -72,24 +72,31 @@ def pretrain(cfg):
     s = dm.s
     model = build_module(cfg)
     t = cfg.get("trainer", {})
+
+        # Create checkpoint directory explicitly
+    ckpt_dir = out / "ckpt"
+    ckpt_dir.mkdir(parents=True, exist_ok=True)
+
     cbs = [
-    ModelCheckpoint(
-        dirpath=str(out / "ckpt"),
-        filename="last",
-        save_last=False,
-        save_top_k=1,
-        every_n_epochs=t.get("ckpt_every", 1),
-        save_on_train_epoch_end=True,
-        enable_version_counter=False,
-        verbose=True
-    )
-]
+        ModelCheckpoint(
+            dirpath=str(ckpt_dir),
+            filename="last",
+            monitor="epoch",
+            mode="max",
+            save_top_k=1,
+            save_last=False,
+            every_n_epochs=t.get("ckpt_every", 1),
+            save_on_train_epoch_end=True,
+            enable_version_counter=False,
+            verbose=True
+        )
+    ]
     if t.get("knn_every", 5) > 0:
         cbs.append(KNNMonitor(s["X_train"], s["y_train"], s["X_val"], s["y_val"], s["num_classes"], t.get("knn_every", 5), **_knn_kw(cfg)))
     trainer = L.Trainer(max_epochs=t["max_epochs"], accelerator="auto", devices=1, precision=_precision(cfg),
                         logger=_logger(cfg, out), callbacks=cbs, log_every_n_steps=20,
                         enable_progress_bar=t.get("progress", True), enable_model_summary=False)
-    last = out / "ckpt" / "last.ckpt"
+    last = ckpt_dir / "last.ckpt"
     trainer.fit(model, datamodule=dm, ckpt_path=str(last) if cfg.get("resume", True) and last.exists() else None)
 
     metrics = {}
