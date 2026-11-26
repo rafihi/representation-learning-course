@@ -1,3 +1,0 @@
-extends: configs/a5_finetune.yaml
-split: test
-out_dir: results/final_test/a5_finetune

@@ -1,3 +1,0 @@
-extends: configs/a7_interpret.yaml
-split: test
-out_dir: results/final_test/a7_interpret

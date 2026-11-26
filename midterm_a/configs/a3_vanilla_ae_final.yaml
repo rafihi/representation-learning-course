@@ -1,4 +1,0 @@
-# Plain AE baseline: identical to the final DAE except no corruption (isolates the effect of denoising).
-extends: configs/a2_dae_final.yaml
-out_dir: runs/vanilla_ae_final
-model: {kind: none, level: 0.0}

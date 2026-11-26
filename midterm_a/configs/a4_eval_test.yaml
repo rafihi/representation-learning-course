@@ -1,3 +1,0 @@
-extends: configs/a4_eval.yaml
-split: test
-out_dir: results/final_test/a4_eval

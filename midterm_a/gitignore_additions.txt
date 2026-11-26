@@ -1,4 +1,0 @@
-midterm_a/runs/
-midterm_a/data_cache/
-midterm_a/runs_smoke/
-midterm_a/results_smoke/
