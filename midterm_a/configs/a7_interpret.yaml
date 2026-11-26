@@ -1,0 +1,13 @@
+# A5: per-class accuracy, t-SNE and nearest-neighbour retrieval grids.
+task: interpret
+seed: 0
+out_dir: results/a7_interpret
+split: val
+data: {cache_dir: data_cache, train_per_class: 450, val_per_class: 50, test_per_class: 50, batch_size: 128}
+knn: {k: 20, T: 0.1}
+tsne_classes: 10
+retrieval_model: dae
+models:
+  - {name: random_init, type: random, seed: 0}
+  - {name: vanilla_ae, arch: dae, path: runs/vanilla_ae_final/ckpt/last.ckpt}
+  - {name: dae, arch: dae, path: runs/dae_final/ckpt/last.ckpt}
