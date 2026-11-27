@@ -1,0 +1,6 @@
+# Final TEST numbers for fine-tuning. Re-uses the models selected on VALIDATION by a5_finetune.yaml (no re-training,
+# no test-based choice): each selected model is evaluated on the official valid split exactly once.
+extends: configs/a5_finetune.yaml
+split: test
+out_dir: results/final_test/a5_finetune
+reuse_selected_from: results/a5_finetune

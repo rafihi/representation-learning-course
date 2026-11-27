@@ -1,0 +1,3 @@
+extends: configs/a6_robustness.yaml
+split: test
+out_dir: results/final_test/a6_robustness

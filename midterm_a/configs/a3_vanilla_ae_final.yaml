@@ -1,0 +1,6 @@
+# Assignment A3 baseline "plain counterpart": identical to the final DAE (same lr / weight decay from the sweep,
+# same data and epochs) except NO corruption (vanilla AE). Isolates what denoising adds.
+extends: configs/a2_dae_final.yaml
+out_dir: runs/vanilla_ae_final
+from_sweep: {keys: [model.lr, model.weight_decay]}
+model: {kind: none, level: 0.0}

@@ -1,0 +1,17 @@
+# Assignment A3: frozen-encoder protocol (k-NN + linear probe, top-1/top-5) on Tiny-ImageNet and the transfer
+# dataset, for the DAE and the baselines. Writes results.csv (+95% bootstrap CIs) and paired_bootstrap.csv.
+task: evaluate
+seed: 0
+out_dir: results/a4_eval
+features_dir: results/features   # shared with the test config; file names include the checkpoint fingerprint
+split: val                       # final numbers: configs/a4_eval_test.yaml
+datasets: [tiny, transfer]
+data: {cache_dir: data_cache, train_per_class: 450, val_per_class: 50, test_per_class: 50, batch_size: 128}
+transfer: {name: cifar100, train_per_class: 500, test_per_class: 100}   # cifar100 | stl10 | pets
+knn: {k: 20, T: 0.1, weight: exp}  # vote weight exp(sim/T); weight: sim -> plain cosine weight
+probe: {epochs: 100, lr_grid: [1.0e-3, 3.0e-3], wd: 1.0e-4}
+n_boot: 1000
+models:
+  - {name: random_init, type: random, seed: 0}
+  - {name: vanilla_ae, arch: dae, path: runs/vanilla_ae_final/ckpt/last.ckpt}
+  - {name: dae, arch: dae, path: runs/dae_final/ckpt/last.ckpt}
