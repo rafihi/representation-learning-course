@@ -1,0 +1,5 @@
+# A2 evidence over training time: the DAE trained 60 epochs with val k-NN every 10 epochs (no epoch selection).
+# Its logs feed configs/a2_dynamics.yaml; it motivated the best-epoch selection of configs/a2_dae_final.yaml.
+extends: configs/a2_dae_final.yaml
+out_dir: runs/dae_final
+trainer: {max_epochs: 60, knn_every: 10, select_best_knn: false}

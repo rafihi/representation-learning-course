@@ -1,0 +1,4 @@
+# Vanilla-AE counterpart of configs/a2_dae_60ep.yaml (60 epochs, val k-NN every 10 epochs, no epoch selection).
+extends: configs/a3_vanilla_ae_final.yaml
+out_dir: runs/vanilla_ae_final
+trainer: {max_epochs: 60, knn_every: 10, select_best_knn: false}

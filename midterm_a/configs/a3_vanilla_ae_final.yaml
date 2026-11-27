@@ -1,0 +1,6 @@
+# Assignment A3 baseline "plain counterpart": identical to the final DAE (same lr / weight decay from the sweep,
+# same data, same 20 epochs, same best-validation-k-NN epoch selection) except NO corruption (vanilla AE).
+extends: configs/a2_dae_final.yaml
+out_dir: runs/vanilla_ae_final_best
+from_sweep: {keys: [model.lr, model.weight_decay]}
+model: {kind: none, level: 0.0}

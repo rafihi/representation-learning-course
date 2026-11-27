@@ -1,0 +1,9 @@
+# A2 "does better reconstruction mean a better representation?" over TRAINING TIME: validation reconstruction MSE and
+# validation k-NN per epoch, read from the TensorBoard logs of the pre-training runs (no GPU, no test data).
+task: dynamics
+out_dir: results/a2_dynamics
+runs:
+  - {name: dae_60ep, dir: runs/dae_final}
+  - {name: vanilla_ae_60ep, dir: runs/vanilla_ae_final}
+  - {name: dae_20ep_best, dir: runs/dae_final_best}
+  - {name: vanilla_ae_20ep_best, dir: runs/vanilla_ae_final_best}

@@ -1,0 +1,14 @@
+# Assignment A2: random search over 4 hyper-parameters in the PROXY setting (100 img/class, 15 epochs),
+# models SELECTED BY VALIDATION k-NN (not by reconstruction). Reconstruction errors are logged for the A2 figure.
+task: sweep
+base_config: configs/base_dae.yaml
+mode: random
+n_trials: 20
+seed: 0
+out_dir: results/a1_tune_dae
+plot: a2                       # writes recon_vs_knn.png (the required A2 figure)
+space:
+  model.kind: {choice: [gaussian, mask, saltpepper]}   # corruption family q(x~|x)
+  model.level: {uniform: [0.1, 0.6]}                   # sigma (gaussian) / drop prob. (mask) / corrupted fraction (s&p)
+  model.lr: {loguniform: [3.0e-4, 3.0e-3]}
+  model.weight_decay: {loguniform: [1.0e-6, 1.0e-3]}

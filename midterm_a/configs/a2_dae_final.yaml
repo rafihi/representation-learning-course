@@ -1,0 +1,14 @@
+# Assignment A1/A2: final DAE in the FULL setting (450 img/class).
+# Hyper-parameters: taken AUTOMATICALLY from the best validation-k-NN trial of the A2 sweep (`from_sweep`);
+# the values under `model:` are only a fallback and are overwritten.
+# Epoch: selected by VALIDATION k-NN. The 60-epoch runs (configs/a2_dae_60ep.yaml, a3_vanilla_ae_60ep.yaml) showed
+# val k-NN peaking at or before epoch 10 and then falling while reconstruction kept improving, so this run trains
+# 20 epochs, measures val k-NN every epoch and keeps the best epoch as ckpt/best.ckpt (same rule for the vanilla AE).
+extends: configs/base_dae.yaml
+out_dir: runs/dae_final_best
+data: {train_per_class: 450, batch_size: 128}
+from_sweep:
+  csv: results/a1_tune_dae/results.csv
+  keys: [model.kind, model.level, model.lr, model.weight_decay]
+model: {kind: gaussian, level: 0.5016725270731012, lr: 0.0004165006165449, weight_decay: 0.00004255688904725068}
+trainer: {max_epochs: 20, knn_every: 1, select_best_knn: true}
