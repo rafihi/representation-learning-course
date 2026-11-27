@@ -1,7 +1,0 @@
-# Assignment A1/A2: final DAE in the FULL setting (450 img/class, 60 epochs).
-# Hyper-parameters = best validation-k-NN trial of results/a1_tune_dae/results.csv (printed at the end of the sweep).
-extends: configs/base_dae.yaml
-out_dir: runs/dae_final
-data: {train_per_class: 450, batch_size: 128}
-model: {kind: gaussian, level: 0.5016725270731012, lr: 0.0004165006165449, weight_decay: 0.00004255688904725068}
-trainer: {max_epochs: 60, knn_every: 10}
