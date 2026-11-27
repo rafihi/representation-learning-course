@@ -161,7 +161,7 @@ def evaluate_linear_probe(bundle, features, labels, bs=2048):
     mu, sd = bundle["mu"].to(DEVICE), bundle["sd"].to(DEVICE)
     outputs = []
     for i in range(0, len(features), bs):
-        xb = ((features[i:i + bs] - mu) / sd).to(DEVICE)
+        xb = (features[i:i + bs].to(DEVICE) - mu) / sd
         outputs.append(clf(xb).float().cpu())
     scores = torch.cat(outputs)
     result = topk_acc(scores, labels)
