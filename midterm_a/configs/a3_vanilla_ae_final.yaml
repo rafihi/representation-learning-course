@@ -1,0 +1,5 @@
+# Assignment A3 baseline "plain counterpart": identical to the final DAE except NO corruption (vanilla AE).
+# Isolates what denoising adds.
+extends: configs/a2_dae_final.yaml
+out_dir: runs/vanilla_ae_final
+model: {kind: none, level: 0.0}
